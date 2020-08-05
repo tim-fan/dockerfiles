@@ -4,6 +4,8 @@ Testing conducted for https://github.com/UbiquityRobotics/dnn_detect/issues/8
 
 Confims that the current version (490c4423) can build and run in ROS noetic.
 
+ - note the current version is failing to build tests
+
 ## Build 
 ```bash
 docker build . -t dnn_detect:noetic
