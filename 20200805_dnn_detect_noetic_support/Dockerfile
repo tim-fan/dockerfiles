@@ -28,4 +28,13 @@ RUN source /opt/ros/noetic/setup.bash \
     && catkin_init_workspace \
     && cd .. \
     && catkin config --install \
-    && catkin build -DCMAKE_INSTALL_PREFIX=/opt/ros/noetic
+    && catkin build -DCMAKE_INSTALL_PREFIX=/opt/ros/noetic -DCMAKE_BUILD_TYPE=Release
+
+#tests
+# last step displays test output filtered as per https://github.com/catkin/catkin_tools/issues/405#issuecomment-573753780
+RUN source /opt/ros/noetic/setup.bash \ 
+    && cd catkin_ws/src \
+    && set -o pipefail \
+    && catkin run_tests | tee /tmp/test_results.txt \
+    && cat /tmp/test_results.txt | sed -En '/^-- run_tests.py/,/^-- run_tests.py/p'
+
